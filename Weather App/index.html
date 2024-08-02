@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <link rel="shortcut icon" type="image/jpg" href="./images/sunrise.svg"/>
+    <link rel="stylesheet" href="style.css">
+    
+    <title>Weather App</title>
+</head>
+<body>
+    <header class="container">
+        <img class="logo" src="./images/sunrise.svg">
+        <nav>
+            <ul class="list">
+                <li class="temp"><a class="nav--links" href="index.html">Temperature</a></li> 
+                <li class="aqi"><a class="nav--links" href="aqi.html">AQI</a></li>
+                <li class="uv"><a class="nav--links" href="uv.html">UV Index</a></li>
+                <li class="know-more"><a class="nav--links" href="know.html">Know More</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="banner">
+        <div class="side">
+            <h1 class="heading">
+                Weather
+                <div class="highlight">
+                    <span class="highlight-inner">WebApp</span>
+                </div>
+                <h4 class="tagline">Know when to bring your <div class="highlight"><span class = "highlight-inner">umbrella</span></div> with you</h4>
+            </h1>            
+        </div>
+
+        <div class="composition">
+            <img src="./images/weather_background.jfif" alt="Photo 1"class="photo photo-1">
+            <img src="./images/weather_background2.jfif" alt="Photo 2" class="photo photo-2">
+            <img src="./images/weather_background3.jfif" alt="Photo 3" class="photo photo-3">
+        </div>
+    </div>
+    
+    <div class="stats">
+        <div id="map1" class="location__current--map">
+            
+        </div>
+        <div class="news">
+            
+        </div>
+    </div>
+
+    <div class="graph">
+        <h1 class="back"><div class="highlight"><span class = "highlight-inner">Five Day Forecast</span></div></h1>
+        <div id="curve_chart" style="width: 900px; height: 500px;"></div>
+    </div>
+    <script src="./scripts/script.js"></script>
+</body>
+</html>
