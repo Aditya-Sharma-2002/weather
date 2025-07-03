@@ -1,0 +1,43 @@
+<div class="des">
+  <div class="uv-form">
+    <form class="uv-form1" [formGroup]="myForm" (ngSubmit)="formSubmit()">
+      <h1>Get weather updates on your email</h1>
+      <h3>We will mail you the periodic weather updates</h3>
+
+      <label>First Name:</label>
+      <input type="text" formControlName="first" placeholder="First Name" />
+      <br /><br />
+
+      <label>Last Name:</label>
+      <input type="text" formControlName="last" placeholder="Last Name" />
+      <br /><br />
+
+      <label>Email id:</label>
+      <input type="email" formControlName="email" placeholder="Email id" />
+      <br /><br />
+
+      <label for="citySearch">Search City:</label>
+      <input id="citySearch" type="text" [formControl]="citySearchControl" placeholder="Search city..." />
+      <br /><br />
+
+      <label for="citySelect">Select City:</label>
+      <select id="citySelect" formControlName="city">
+        <option *ngFor="let city of filteredCities" [value]="city">{{ city }}</option>
+      </select>
+      <br /><br />
+
+      <label>Interval:</label>
+      <select formControlName="time">
+        <option value="60000">1 min</option>
+        <option value="1800000">30 min</option>
+        <option value="3600000">1 hour</option>
+        <option value="21600000">6 hour</option>
+        <option value="43200000">12 hour</option>
+        <option value="86400000">24 hour</option>
+      </select>
+      <br /><br />
+
+      <button class="sub" type="submit" [disabled]="myForm.invalid">Submit</button>
+    </form>
+  </div>
+</div>

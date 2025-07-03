@@ -1,0 +1,71 @@
+<head>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+</head>
+
+<body>
+  <div class="banner">
+    <div class="side">
+      <h1 class="heading">
+        Weather
+        <div class="highlight">
+          <span class="highlight highlight-inner">WebApp</span>
+        </div>
+        <h4 class="tagline">Know when to bring your
+          <div class="highlight">
+            <span class="highlight-inner">umbrella</span>
+          </div>with you
+        </h4>
+      </h1>
+    </div>
+
+    <div class="composition">
+      <img src="assets/images/weather_background.jfif" alt="Photo 1" class="photo photo-1" />
+      <img src="assets/images/weather_background2.jfif" alt="Photo 2" class="photo photo-2" />
+      <img src="assets/images/weather_background3.jfif" alt="Photo 3" class="photo photo-3" />
+    </div>
+  </div>
+
+  <div class="stats">
+    <div id="map1" class="location__current--map"></div>
+    <!-- <div class="news"></div> -->
+     <div class="news">
+  <div class="cards" *ngFor="let item of newsItems">
+    <img [src]="'assets/images/' + item.weather[0].main.toLowerCase() + '.svg'" class="news--logo" />
+    <div style="margin-left: 40px;">
+      <h3>{{ item.dt_txt }}</h3>
+      <h3>{{ (item.main.temp_min - 273) | number: '1.0-1' }}°C</h3>
+      <h4>{{ item.weather[0].description }}</h4>
+    </div>
+  </div>
+</div>
+
+  </div>
+  
+  <div class="graph">
+    <h1 class="back">
+      
+      <div class="highlight">
+        
+        <span class="highlight-inner">Five Day Forecast</span>
+      </div>
+    </h1>    
+    <!-- <div id="curve_chart" style="width: 900px; height: 50px ; border : 1px solid red"> -->
+      <google-chart
+      style="width: 100%; height: 35rem; display: block;"
+        [type]="chart.type"
+        [data]="chart.data"
+        [columns]="chart.columns"
+        [options]="chart.options">
+      </google-chart>
+    <!-- </div> -->
+  </div>
+</body>

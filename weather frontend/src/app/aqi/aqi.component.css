@@ -1,0 +1,323 @@
+/* body{
+    margin: 10px 140px 10px 140px;    
+} */
+body{
+    margin: 2rem 6rem;
+}
+.container{
+    background: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.logo{
+    font-size: 35px;    
+    height: 45px;
+    margin-left: 100px;
+}
+.list{
+    list-style: none;    
+    height: 100%;
+}
+.list>li{
+    display: inline;
+    font-size: 35px;
+    height: 100%;
+    padding: 0 10px 0 10px;
+    border-radius: 50px;
+}
+.list>li:hover{
+    transition: all 0.5s;    
+    background: linear-gradient(to left, #39b385, #9be15d);
+}
+.nav--links{
+    text-decoration: none;
+    color: black;
+}
+.list>li:active{
+    transform: translateY(2rem);
+}
+.stats{
+    display: flex;
+    justify-content: space-between;
+    height: 600px;
+}
+.location__current--map{
+    width: 65%;    
+}
+.news{
+    width: 30%;
+    overflow-y: auto;
+    height: 600px;
+}
+.news-a{
+    overflow-y: auto;
+    height: 520px;
+}
+.outer{
+    width: 30%;
+}
+.cards{
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    margin-left: 10px;
+    margin: 0 0 15px 10px;
+    border-radius: 10px;
+    box-shadow: 5px 2px 5px;
+    border-radius: 10px;
+    width: 93%;
+    box-shadow: 0px 5px 10px;
+}
+.news--logo{
+    height: 85px;
+    margin-left: 10px;
+}
+.banner{
+    border: 1px solid #39b385;
+    height: 60%;
+    height: 600px;
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+    /* font-size: 50px; */
+    font-size: 35px;
+    margin-bottom: 100px;
+    /* background: linear-gradient(to top left, rgb(57,179,133, 0.5), #9be15d), url('./images/weather_background.jfif'); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+}
+.heading{
+    margin-top: 15%;
+    display: flex;
+    animation: moveInLeft;
+    animation-duration: 2s;
+}
+.side{
+    width: 60%;
+}
+.highlight{
+    transform: skewX(-15deg);
+    background-image: linear-gradient(to bottom right, #39b385, #9be15d);
+    margin-left: 10px;
+    margin: 0 10px 0 10px;
+}
+.highlight-inner{
+    display: inline-block;
+    transform: skewX(15deg);
+}
+.tagline{
+    display: flex;
+    animation: moveInRight;
+    animation-duration: 2s;
+}
+.composition{
+    position: relative;
+}
+.composition:hover>.photo:not(:hover){
+    transform: scale(0.9);
+}
+.photo{
+    box-shadow: 0 1.5rem 4rem rgba(0,0,0,0.4);
+    position: absolute;
+    transition: all 0.2s;
+    outline-offset: 1rem;
+}
+.photo:hover{
+    outline: 1.5rem solid #55c57a;
+    box-shadow: 0 2.5rem 4rem rgba(0,0,0,0.5);
+}
+.photo-1{
+    top: 5rem;
+    left: 10rem;
+    z-index: 0;
+}
+.photo-2{
+    left: 4rem;
+    top: 8rem;
+    z-index: 1;
+}
+.photo-3{
+    left: 12rem;
+    top: 14rem;
+    z-index: 2;
+}
+.photo-1:hover{
+    transform: scale(1.05);
+    box-shadow: 0 2.5rem 4rem rgba(0,0,0,0.5);
+    z-index: 3;
+}
+.photo-2:hover{
+    transform: scale(1.05);
+    box-shadow: 0 2.5rem 4rem rgba(0,0,0,0.5);
+    z-index: 3;
+}
+.photo-3:hover{
+    transform: scale(1.05);
+    box-shadow: 0 2.5rem 4rem rgba(0,0,0,0.5);
+    z-index: 3;
+}
+@keyframes moveInLeft {
+    0%{
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+
+    50%{
+        opacity: 0.5;
+        transform: translateX(10px);
+    }
+    
+    100%{
+        opacity: 1;
+    }
+}
+@keyframes moveInRight {
+    0%{
+        opacity: 0;
+        transform: translateX(100px);
+    }
+
+    50%{
+        opacity: 0.5;
+        transform: translateX(-10px);
+    }
+
+    100%{
+        opacity: 1;
+    }
+}
+label{
+    width: 80px;
+    display: inline-block;
+}
+.des{
+    background: linear-gradient(to right, #39b385, #9be15d);
+    display: inline-block;
+    border-bottom-right-radius: 100%; 
+    border-top-left-radius: 100%;
+    margin-left: 25%;
+}
+.uv-form{
+    text-align: center;
+    height: 400px;
+    width: 600px;
+    padding-top: 150px;
+    z-index: 1;
+    background: linear-gradient(to left, #39b385, #9be15d);
+    border-bottom-left-radius: 100%;
+    border-top-right-radius: 100%;
+}
+.warn{
+    color: red;
+}
+.back{
+    text-align: center;
+    font-size: 50px;
+}
+#curve_chart{
+    margin-left: 15%;
+}
+.graph{
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
+.good-strip{
+    border-left: 10px solid rgb(0, 153, 102);
+    border-radius: 15px;
+}
+.moderate-strip{
+    border-left: 10px solid rgb(255, 222, 51);
+    border-radius: 15px;
+}
+.unhealthy_sg-strip{
+    border-left: 10px solid rgb(255,153,51);
+    border-radius: 15px;
+}
+.unhealthy-strip{
+    border-left: 10px solid rgb(204, 0, 51);
+    border-radius: 15px;
+}
+.vunhealthy-strip{
+    border-left: 10px solid rgb(102, 0, 153);
+    border-radius: 15px;
+}
+.hazardous-strip{
+    border-left: 10px solid rgb(126, 0, 35);
+    border-radius: 15px;
+}
+.infoaqitable{
+    margin: 50px 0 50px 0;
+    font-size: 20px;
+    border: 1px solid black;
+}
+thead>tr>td{
+    border: 1px solid black;
+}
+.main{
+    font-size: 50px;
+    /* font-family: 'Times New Roman'; */
+    font-family: 'garamond';
+}
+.topic1, .topic2, .topic3{
+    font-size: 20px;
+}
+.content{
+    font-family: Arial, Helvetica, sans-serif;
+    color: gray;
+}
+.backcover{
+    height: 95vh;
+    /* background-repeat: no-repeat; */
+    /* background-size: contain; */
+    /* background-position: top; */
+    /* height: 600px;     */
+}
+.backcover1{
+    /* background: url('./images/factory.jpg'); */
+    /* filter: blur(20px); */
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: top;
+}
+.backcover2{
+    /* background:  url('./images/ac.jpg'); */
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: top;
+}
+.backcover3{
+    /* height: 95vh; */
+    /* background:  url('./images/boxed-water.jpg'); */
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: top;
+}
+.subtopic1{
+    margin: 0 0 0 150px;
+    border: 1px solid transparent;
+}
+.subtopic2{
+    /* padding-top: -350px; */
+    /* padding: -150px; */
+    /* padding: 0; */
+    /* margin: -150px 0 0 300px; */
+    left: 150px;
+    border: 1px solid transparent;
+}
+.subtopic3{
+    float: right;
+    margin: 150px 150px 0 0;
+}
+.section{
+    transition: transform 0.5s, opacity 0.5s;
+}
+.fadeOut{
+    opacity: 0;
+    transform: translateY(8rem);
+    transition: all 400ms ease-out;
+}
+.nav--links:visited{
+    background-color: red;
+}
