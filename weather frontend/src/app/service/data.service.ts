@@ -14,4 +14,9 @@ export class DataService {
   sendData(form: any) : Observable<any>{
     return this.http.post(`${this.apiUrl}`, form)
   }
+
+  getGeolocation(lat: number, lon: number): Observable<any> {
+  const url = `${this.apiUrl}/reverse-geocode?lat=${lat}&lon=${lon}`;
+  return this.http.get(url);
+}
 }

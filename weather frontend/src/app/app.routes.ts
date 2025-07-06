@@ -10,4 +10,9 @@ export const routes: Routes = [
     {path: 'aqi', component: AqiComponent},
     {path: 'subscribe', component: EmailComponent},
     {path: '**', component: ErrorComponent}
+    // {path:'', loadComponent: ()=>import('./home/home.component').then((c) => c.HomeComponent)},
+    // {path:'home', loadComponent: ()=> import('./home/home.component').then((c) => c.HomeComponent)},
+    // {path:'aqi', loadComponent:()=>import('./aqi/aqi.component').then((c) => c.AqiComponent)},
+    // {path:'subscribe', loadComponent: ()=>import('./email/email.component').then((c) => c.EmailComponent)},
+    // {path:'**', loadComponent:()=>import('./error/error.component').then((c)=>c.ErrorComponent)}
 ];

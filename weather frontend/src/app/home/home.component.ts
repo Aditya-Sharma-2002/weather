@@ -86,6 +86,14 @@ export class HomeComponent implements OnInit {
       });
 
     this.drawForecast(lat, lon);
+
+    this.http.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${this.key}`)
+    .subscribe((res: any) => {
+      const selectedDate = new Date().getDate();
+      this.newsItems = res.list.filter((item: any) => {
+        return Number(item.dt_txt.slice(8, 10)) === selectedDate;
+      });
+    });
   }
 
   drawForecast(lat: number, lon: number) {
@@ -100,7 +108,7 @@ export class HomeComponent implements OnInit {
 
       for (const item of res.list) {
         const dateObj = new Date(item.dt_txt);
-        const dateStr = dateObj.toISOString().split('T')[0]; // e.g., "2025-07-01"
+        const dateStr = dateObj.toISOString().split('T')[0];
 
         if (!groupedData[dateStr]) {
           groupedData[dateStr] = { min: [], max: [] };
@@ -110,8 +118,7 @@ export class HomeComponent implements OnInit {
         groupedData[dateStr].max.push(item.main.temp_max - 273);
       }
 
-      const sortedDates = Object.keys(groupedData).sort().slice(0, 5); // next 5 days only
-
+      const sortedDates = Object.keys(groupedData).sort().slice(0, 5);
       for (const d of sortedDates) {
         const tempDate = new Date(d);
         const label = `${tempDate.getDate()} ${this.months[tempDate.getMonth()]}`;

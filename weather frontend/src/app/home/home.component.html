@@ -37,16 +37,16 @@
   <div class="stats">
     <div id="map1" class="location__current--map"></div>
     <!-- <div class="news"></div> -->
-     <div class="news">
-  <div class="cards" *ngFor="let item of newsItems">
-    <img [src]="'assets/images/' + item.weather[0].main.toLowerCase() + '.svg'" class="news--logo" />
-    <div style="margin-left: 40px;">
-      <h3>{{ item.dt_txt }}</h3>
-      <h3>{{ (item.main.temp_min - 273) | number: '1.0-1' }}°C</h3>
-      <h4>{{ item.weather[0].description }}</h4>
+    <div class="news">
+      <div class="cards" *ngFor="let item of newsItems">
+        <img [src]="'assets/images/' + item.weather[0].main.toLowerCase() + '.svg'" class="news--logo" />
+        <div style="margin-left: 40px;">
+          <h3>{{ item.dt_txt }}</h3>
+          <h3>{{ (item.main.temp_min - 273) | number: '1.0-1' }}°C</h3>
+          <h4>{{ item.weather[0].description }}</h4>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
   </div>
   

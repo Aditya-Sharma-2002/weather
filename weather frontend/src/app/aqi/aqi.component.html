@@ -19,22 +19,27 @@
 </head>
 
 <body>
-    
+
     <div class="stats">
         <div id="map1" class="location__current--map">
 
         </div>
         <div class="outer">
-            <h1 class="back highlight" style="margin-bottom: 15px;">                
+            <h1 class="back highlight" style="margin-bottom: 15px;">
                 <span class="highlight-inner">Pollutants</span>
             </h1>
             <div class="news-a">
-
+                <div class="cards" *ngFor="let pollutant of pollutants">
+                    <img [src]="'assets/images/' + pollutant.name + '.png'" class="news--logo" />
+                    <div style="margin-left: 40px;">
+                        <h3>{{ pollutant.value }}</h3>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    
-    <h1 class="back highlight" style="margin-top: 50px ">                
+
+    <h1 class="back highlight" style="margin-top: 50px ">
         <span class="highlight-inner">AQI Color Code</span>
     </h1>
     <table class="infoaqitable cautionary">

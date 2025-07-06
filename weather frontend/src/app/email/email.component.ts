@@ -56,7 +56,7 @@ export class EmailComponent implements OnInit {
   formSubmit() {
     if (this.myForm.valid) {
       this.dataService.sendData(this.myForm.value).subscribe({
-        next: () => this.myForm.reset(),
+        next: () => {this.myForm.reset();console.log(`Form submitted`);},
         error: err => console.error('Submission error:', err)
       });
     }

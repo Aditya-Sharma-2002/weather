@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { DataService } from '../service/data.service';
 
 @Component({
   selector: 'app-aqi',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './aqi.component.html',
   styleUrls: ['./aqi.component.css']
 })
@@ -19,10 +21,9 @@ export class AqiComponent implements OnInit {
   pollutants: any[] = [];
   markers: any[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private dataService: DataService) { }
 
   ngOnInit(): void {
-    console.log(`object`);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         pos => {
@@ -40,7 +41,6 @@ export class AqiComponent implements OnInit {
   }
 
   initMap() {
-    console.log("Long: " , this.latitude, "Lat : ", this.longitude);
     this.map = L.map('map1').setView([this.latitude, this.longitude], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors'
@@ -55,15 +55,13 @@ export class AqiComponent implements OnInit {
     });
   }
 
-  fetchAQIData(lat: number, lon: number) {
-    fetch(`https://geocode.xyz/${lat},${lon}?geoit=json`)
-      .then(res => res.json())
-      .then(loc => {
-        console.log(loc);
-        fetch(`https://api.waqi.info/search/?token=d9d6fd38c2f43fc932d2c011f45d9b605748e0c6&keyword=${loc.city}`)
+  fetchAQIData(lat: number, lon: number) {    
+    this.dataService.getGeolocation(lat,lon)
+    .subscribe(loc => {
+      console.log(loc);
+      fetch(`https://api.waqi.info/search/?token=d9d6fd38c2f43fc932d2c011f45d9b605748e0c6&keyword=${loc.address.city || loc.address.county}`)
           .then(res => res.json())
           .then(data => {
-            // console.log(data.data);
             data.data.forEach((item: any) => {
               if (item.aqi !== '-') {
                 const aqi = Number(item.aqi);
@@ -89,7 +87,15 @@ export class AqiComponent implements OnInit {
               }
             });
           });
-      });
+    }
+    );
+    // fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`)
+    //   .then(res => res.json())
+    //   .then(loc => {
+    //     console.log(loc);
+        
+        
+    //   });
   }
 
   fetchPollutants(lat: number, lon: number) {
