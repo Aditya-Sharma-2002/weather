@@ -110,3 +110,4 @@ C:\Users\acer pc\Desktop\GitHub\weather\weather backend\obj\Debug\net8.0\refint\
 C:\Users\acer pc\Desktop\GitHub\weather\weather backend\obj\Debug\net8.0\weather backend.pdb
 C:\Users\acer pc\Desktop\GitHub\weather\weather backend\obj\Debug\net8.0\weather backend.genruntimeconfig.cache
 C:\Users\acer pc\Desktop\GitHub\weather\weather backend\obj\Debug\net8.0\ref\weather backend.dll
+C:\Users\acer pc\Desktop\GitHub\weather\weather backend\obj\Debug\net8.0\weather backend.sourcelink.json

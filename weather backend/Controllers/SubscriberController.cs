@@ -61,6 +61,20 @@ namespace weather_backend.Controllers
       return NoContent();
     }
 
+    [HttpGet("reverse-geocode")]
+    public async Task<IActionResult> ReverseGeocode(double lat, double lon)
+    {
+        using var client = new HttpClient();
+        var url = $"https://nominatim.openstreetmap.org/reverse?lat={lat}&lon={lon}&format=json";
+        client.DefaultRequestHeaders.UserAgent.ParseAdd("YourApp/1.0");
 
-  }
+        var response = await client.GetAsync(url);
+        if (!response.IsSuccessStatusCode) return StatusCode((int)response.StatusCode);
+
+        var content = await response.Content.ReadAsStringAsync();
+        return Content(content, "application/json");
+    }
+
+
+    }
 }
