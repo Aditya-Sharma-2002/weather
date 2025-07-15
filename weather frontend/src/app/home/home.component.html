@@ -34,6 +34,10 @@
     </div>
   </div>
 
+  <div class="search-container">
+    <input [(ngModel)]="city" type="text"  placeholder="Enter city name" (keyup.enter)="getCity()"/>
+    <button (click)="getCity()">Search</button>
+  </div>
   <div class="stats">
     <div id="map1" class="location__current--map"></div>
     <!-- <div class="news"></div> -->

@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+.good-strip {
+    border-left: 10px solid rgb(0, 153, 102);
+    padding-left: 15px;
+}
+.moderate-strip{
+    border-left: 10px solid rgb(255, 222, 51);
+    border-radius: 15px;
+}
+.unhealthy_sg-strip{
+    border-left: 10px solid rgb(255,153,51);
+    border-radius: 15px;
+}
+.unhealthy-strip{
+    border-left: 10px solid rgb(204, 0, 51);
+    border-radius: 15px;
+}
+.vunhealthy-strip{
+    border-left: 10px solid rgb(102, 0, 153);
+    border-radius: 15px;
+}
+.hazardous-strip{
+    border-left: 10px solid rgb(126, 0, 35);
+    border-radius: 15px;
+}

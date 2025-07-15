@@ -240,3 +240,42 @@ label{
     margin-top: 10%;
     margin-bottom: 10%;
 }
+.search-container {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  gap: 10px;
+  margin-top: 20px;
+  margin-left: 20%; 
+  margin-bottom: 3%;
+}
+
+
+.search-container input {
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  width: 50%;
+  transition: border-color 0.3s;
+}
+
+.search-container input:focus {
+  border-color: #9be15d;
+  outline: none;
+}
+
+.search-container button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #39b385;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-container button:hover {
+  background-color: #9be15d;
+}

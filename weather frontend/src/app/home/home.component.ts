@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import * as L from 'leaflet';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ChartType, GoogleChartsModule } from 'angular-google-charts';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
   standalone: true, 
-  imports: [CommonModule, HttpClientModule, GoogleChartsModule], 
+  imports: [CommonModule, HttpClientModule, GoogleChartsModule, FormsModule], 
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -19,6 +20,7 @@ export class HomeComponent implements OnInit {
   latitude!: number;
   longitude!: number;
   newsItems: any[] = [];
+  city : string = '';
   chart = {
   type: ChartType.LineChart,
   data: [],
@@ -26,7 +28,7 @@ export class HomeComponent implements OnInit {
   options: {
     title: '5 Day Forecast',
     legend: { position: 'bottom' as const }
-  }
+  }  
 };
   map: any;
   graphData: any = { least: [], most: [], dates: [] };
@@ -140,4 +142,22 @@ export class HomeComponent implements OnInit {
     ]);
     this.chart.data = chartRows;
   }
+
+  getCity() {
+  if (!this.city.trim()) return;
+
+  this.http.get<any[]>(`https://api.openweathermap.org/geo/1.0/direct?q=${this.city}&limit=1&appid=${this.key}`)
+    .subscribe((res) => {
+      if (res.length === 0) {
+        alert("City not found");
+        return;
+      }
+
+      this.latitude = res[0].lat;
+      this.longitude = res[0].lon;
+      this.map.setView([this.latitude, this.longitude], 13);
+      this.loadWeather(this.latitude, this.longitude);
+      this.city = '';
+    });
+}
 }

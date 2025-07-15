@@ -3,18 +3,25 @@
     display: inline-block;
     border-bottom-right-radius: 100%; 
     border-top-left-radius: 100%;
-    margin-left: 25%;
+    margin: 3% 30%;
 }
-.uv-form{
+.uv-form{    
     text-align: center;
-    height: 400px;
-    width: 600px;
-    padding-top: 150px;
+    max-width: 90%;
+    height: auto;
+    padding: 15% 5%;
     z-index: 1;
     background: linear-gradient(to left, #39b385, #9be15d);
     border-bottom-left-radius: 100%;
     border-top-right-radius: 100%;
 }
 .uv-form1{        
-    margin-top: -10%;
+    margin-top: -10%;    
+}
+
+@media (max-width : 425px){
+    .uv-form1{
+        border: 1px solid red;
+        /* font-size: 1.5em; */
+    }
 }

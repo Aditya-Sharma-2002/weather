@@ -3,11 +3,12 @@ import * as L from 'leaflet';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { DataService } from '../service/data.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-aqi',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './aqi.component.html',
   styleUrls: ['./aqi.component.css']
 })
@@ -20,8 +21,9 @@ export class AqiComponent implements OnInit {
   map: any;
   pollutants: any[] = [];
   markers: any[] = [];
+  city: string = '';
 
-  constructor(private http: HttpClient, private dataService: DataService) { }
+  constructor(private http: HttpClient, private dataService: DataService) {}
 
   ngOnInit(): void {
     if (navigator.geolocation) {
@@ -31,8 +33,8 @@ export class AqiComponent implements OnInit {
           this.longitude = pos.coords.longitude;
           this.initMap();
           setTimeout(() => {
-          this.fetchAQIData(this.latitude, this.longitude);
-          this.fetchPollutants(this.latitude, this.longitude);
+            this.fetchAQIData(this.latitude, this.longitude);
+            this.fetchPollutants(this.latitude, this.longitude);
           }, 1000);
         },
         () => alert(`Can't do anything`)
@@ -49,53 +51,56 @@ export class AqiComponent implements OnInit {
     this.map.on('click', (event: any) => {
       const lat = event.latlng.lat;
       const lng = event.latlng.lng;
-      // console.log(lat, " :: " , lng);
       this.fetchAQIData(lat, lng);
       this.fetchPollutants(lat, lng);
     });
   }
 
-  fetchAQIData(lat: number, lon: number) {    
-    this.dataService.getGeolocation(lat,lon)
-    .subscribe(loc => {
-      console.log(loc);
+  fetchAQIData(lat: number, lon: number) {
+    this.dataService.getGeolocation(lat, lon).subscribe(loc => {
       fetch(`https://api.waqi.info/search/?token=d9d6fd38c2f43fc932d2c011f45d9b605748e0c6&keyword=${loc.address.city || loc.address.county}`)
-          .then(res => res.json())
-          .then(data => {
-            data.data.forEach((item: any) => {
-              if (item.aqi !== '-') {
-                const aqi = Number(item.aqi);
-                let aqiClass = '', message = '';
-                if (aqi <= 50) { aqiClass = 'good'; message = 'good'; }
-                else if (aqi <= 100) { aqiClass = 'moderate'; message = 'moderate'; }
-                else if (aqi <= 150) { aqiClass = 'unhealthy_sg'; message = 'unhealthy for sensitive groups'; }
-                else if (aqi <= 200) { aqiClass = 'unhealthy'; message = 'unhealthy'; }
-                else if (aqi <= 300) { aqiClass = 'vunhealthy'; message = 'very unhealthy'; }
-                else { aqiClass = 'hazardous'; message = 'hazardous'; }
+        .then(res => res.json())
+        .then(data => {
+          data.data.forEach((item: any) => {
+            if (item.aqi !== '-') {
+              const aqi = Number(item.aqi);
+              let aqiClass = '', message = '';
+              if (aqi <= 50) { aqiClass = 'good'; message = 'good'; }
+              else if (aqi <= 100) { aqiClass = 'moderate'; message = 'moderate'; }
+              else if (aqi <= 150) { aqiClass = 'unhealthy_sg'; message = 'unhealthy for sensitive groups'; }
+              else if (aqi <= 200) { aqiClass = 'unhealthy'; message = 'unhealthy'; }
+              else if (aqi <= 300) { aqiClass = 'vunhealthy'; message = 'very unhealthy'; }
+              else { aqiClass = 'hazardous'; message = 'hazardous'; }
 
-                L.marker([item.station.geo[0], item.station.geo[1]])
-                  .addTo(this.map)
-                  .bindPopup(L.popup({
-                    maxWidth: 250,
-                    minWidth: 100,
-                    autoClose: false,
-                    closeOnClick: false,
-                    className: `${aqiClass}-strip`
-                  })
-                    .setContent(`AQI: ${aqi}, ${message}<br>Place: ${item.station.name}`))
-                  .openPopup();
-              }
-            });
+              const popup = L.popup({
+                maxWidth: 250,
+                minWidth: 100,
+                autoClose: false,
+                closeOnClick: false,
+                className: `${aqiClass}-strip`
+              }).setContent(`AQI: ${aqi}, ${message}<br>Place: ${item.station.name}`);
+
+              const marker = L.marker([item.station.geo[0], item.station.geo[1]])
+                .addTo(this.map)
+                .bindPopup(popup)
+                .openPopup();
+
+              // Delay to let popup render, then transfer class to inner wrapper
+              setTimeout(() => {
+                const popupElements = document.querySelectorAll('.leaflet-popup');
+                popupElements.forEach(popupEl => {
+                  const wrapper = popupEl.querySelector('.leaflet-popup-content-wrapper');
+                  const stripClass = Array.from(popupEl.classList).find(c => c.endsWith('-strip'));
+                  if (wrapper && stripClass) {
+                    wrapper.classList.add(stripClass);
+                    popupEl.classList.remove(stripClass);
+                  }
+                });
+              }, 100);
+            }
           });
-    }
-    );
-    // fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`)
-    //   .then(res => res.json())
-    //   .then(loc => {
-    //     console.log(loc);
-        
-        
-    //   });
+        });
+    });
   }
 
   fetchPollutants(lat: number, lon: number) {
@@ -105,6 +110,26 @@ export class AqiComponent implements OnInit {
           name: key,
           value
         }));
+      });
+  }
+
+  getCity() {
+    if (!this.city.trim()) return;
+
+    this.http.get<any[]>(`https://api.openweathermap.org/geo/1.0/direct?q=${this.city}&limit=1&appid=${this.key}`)
+      .subscribe(res => {
+        if (!res.length) {
+          alert("City not found");
+          return;
+        }
+
+        const lat = res[0].lat;
+        const lon = res[0].lon;
+
+        this.map.setView([lat, lon], 13);
+        this.fetchAQIData(lat, lon);
+        this.fetchPollutants(lat, lon);
+        this.city = '';
       });
   }
 }
