@@ -1,4 +1,4 @@
-* {
+/* * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -81,4 +81,70 @@ body {
     font-size: 1rem;
   }
 }
+ */
 
+.container{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column: span 2;
+}
+.logo{
+  width: 50px;
+  margin-left: 10px;
+  align-self: center;
+  grid-column: 1/2;
+}
+nav{
+  grid-column: 3/4;
+}
+.list li a{
+  font-size: 1.2em;
+  padding: 10px;
+  transition: all 0.5s ease;
+  color: #000000;
+}
+.list > li {
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  text-align: center;
+  list-style: none;
+}
+nav ul li:hover{
+  border-radius: 15em;
+  background: linear-gradient(to left, #39b385, #9be15d);
+}
+nav a{  
+  text-decoration: none;
+}
+.list{
+  display: flex;
+  justify-content: end;
+}
+
+
+
+@media screen and (min-width: 620px) {
+  .list li a{
+    font-size: 1.8rem;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .logo{
+    margin-left: 15%;
+  }
+  .list li a{
+    font-size: 1.8rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .logo{
+    margin-left: 10%;
+  }
+  .list li a{
+    font-size: 2rem;
+  }
+}
