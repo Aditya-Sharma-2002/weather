@@ -4,6 +4,7 @@ import * as L from 'leaflet';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ChartType, GoogleChartsModule } from 'angular-google-charts';
 import { FormsModule } from '@angular/forms';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-home',
@@ -22,25 +23,45 @@ export class HomeComponent implements OnInit {
   newsItems: any[] = [];
   city : string = '';
   chart = {
-  type: ChartType.LineChart,
-  data: [],
-  columns: ['Day', 'Min', 'Max'],
-  options: {
-    title: '5 Day Forecast',
-    legend: { position: 'bottom' as const }
-  }  
-};
+    type: ChartType.LineChart,
+    data: [],
+    columns: ['Day', 'Min', 'Max'],
+    options: {
+      title: '5 Day Forecast',
+      legend: { position: 'bottom' as const }
+    }  
+  };
   map: any;
   graphData: any = { least: [], most: [], dates: [] };
   months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+  isMobile = false;
+  activeTab: 'map' | 'cards' = 'map';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private breakpointObserver: BreakpointObserver) {
+    this.breakpointObserver.observe([Breakpoints.Handset, '(max-width: 959px)'])
+      .subscribe(result => {
+        this.isMobile = result.matches;
+      });
+  }
+
+  switchTab(tab: 'map' | 'cards') {
+    this.activeTab = tab;
+    if(tab === 'map')
+      setTimeout(() => {
+        const mapInstance = L.map('map1');
+        if(mapInstance){
+          mapInstance.invalidateSize();        
+          mapInstance.setView([this.latitude, this.longitude]);
+        }
+      }, 100);
+  }
 
   ngOnInit(): void {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(pos => {
         this.latitude = pos.coords.latitude;
         this.longitude = pos.coords.longitude;
+        console.log(`lat = ${this.latitude} and lon = ${this.longitude}`);
         this.initMap();
         this.loadWeather(this.latitude, this.longitude);
         this.http.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${this.latitude}&lon=${this.longitude}&appid=${this.key}`)
@@ -56,18 +77,27 @@ export class HomeComponent implements OnInit {
   }
 
   initMap() {
-    this.map = L.map('map1').setView([this.latitude, this.longitude], 13);
+  this.map = L.map('map1', {
+    center: [this.latitude, this.longitude],
+    zoom: 13,
+    zoomControl: true
+  });
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(this.map);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(this.map);
 
-    this.map.on('click', (e: any) => {
-      this.latitude = e.latlng.lat;
-      this.longitude = e.latlng.lng;
-      this.loadWeather(this.latitude, this.longitude);
-    });
-  }
+  // Invalidate size after short delay to fix grey/half map
+  setTimeout(() => {
+    this.map.invalidateSize();
+  }, 200);
+
+  this.map.on('click', (e: any) => {
+    this.latitude = e.latlng.lat;
+    this.longitude = e.latlng.lng;
+    this.loadWeather(this.latitude, this.longitude);
+  });
+}
 
   loadWeather(lat: number, lon: number) {
     const temp: any = { min: 0, max: 0, description: '', name: '' };

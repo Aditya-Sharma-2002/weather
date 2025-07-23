@@ -16,16 +16,13 @@
     <div class="side">
       <h1 class="heading">
         Weather
-        <div class="highlight">
-          <span class="highlight-inner">WebApp</span>
-        </div>
+          <span class="highlight"><span class="highlight-inner">WebApp</span></span>
       </h1>
       
       <h4 class="tagline">
-        Know when to bring your
-        <div class="highlight">
-          <span class="highlight-inner">umbrella</span>
-        </div>with you
+        Know when to bring
+        <span class="highlight"><span class="highlight-inner">your umbrella</span></span>
+        with you
       </h4>
     </div>
 
@@ -40,21 +37,42 @@
     <input [(ngModel)]="city" type="text"  placeholder="Enter city name" (keyup.enter)="getCity()"/>
     <button (click)="getCity()">Search</button>
   </div>
-  <div class="stats">
+  
+  <!-- Small laptops and screens greater than that friendly view -->
+  <div class="stats" *ngIf="!isMobile">
     <div id="map1" class="location__current--map"></div>
     <!-- <div class="news"></div> -->
     <div class="news">
       <div class="cards" *ngFor="let item of newsItems">
         <img [src]="'assets/images/' + item.weather[0].main.toLowerCase() + '.svg'" class="news--logo" />
-        <div style="margin-left: 40px;">
+        <div style="margin-left: 5%;">
           <h3>{{ item.dt_txt }}</h3>
           <h3>{{ (item.main.temp_min - 273) | number: '1.0-1' }}°C</h3>
           <h4>{{ item.weather[0].description }}</h4>
         </div>
       </div>
     </div>
-
   </div>
+
+  <div *ngIf="isMobile" class="mobile-toggle">
+    <button (click)="switchTab('map')" [class.active]="activeTab === 'map'">Map</button>
+    <button (click)="switchTab('cards')" [class.active]="activeTab === 'cards'">Cards</button>
+  </div>
+
+<div class="stats">
+  <!-- Toggle view for mobile -->
+  <div *ngIf="isMobile && activeTab === 'map'" class="location__current--map" id="map1"></div>
+  <div *ngIf="isMobile && activeTab === 'cards'" class="news">
+    <div class="cards" *ngFor="let item of newsItems">
+      <img [src]="'assets/images/' + item.weather[0].main.toLowerCase() + '.svg'" class="news--logo" />
+      <div> 
+        <h3>{{ item.dt_txt }}</h3>
+        <h3>{{ (item.main.temp_min - 273) | number: '1.0-1' }}°C</h3>
+        <h4>{{ item.weather[0].description }}</h4>
+      </div>
+    </div>
+  </div>
+</div>
   
   <div class="graph">
     <h1 class="back">
@@ -64,7 +82,6 @@
         <span class="highlight-inner">Five Day Forecast</span>
       </div>
     </h1>    
-    <!-- <div id="curve_chart" style="width: 900px; height: 50px ; border : 1px solid red"> -->
       <google-chart
       style="width: 100%; height: 35rem; display: block;"
         [type]="chart.type"
@@ -72,6 +89,5 @@
         [columns]="chart.columns"
         [options]="chart.options">
       </google-chart>
-    <!-- </div> -->
   </div>
 </body>
