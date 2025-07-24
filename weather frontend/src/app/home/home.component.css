@@ -133,12 +133,17 @@ body {
   border-radius: 6px;
   cursor: pointer;  
   transition: background-color 0.3s;
-  /* margin: 0 auto; */
   margin-right: auto;
 }
 
 .search-container button:hover {
   background-color: #9be15d;
+}
+
+.mobile-stats{
+  display: flex;  
+  height: 600px;
+  margin-bottom: 5%;
 }
 
 .mobile-toggle-wrapper {
@@ -215,7 +220,7 @@ body {
 .stats {
   display: flex;
   justify-content: space-between;
-  /* height: 600px; */
+  height: 600px;
   margin-bottom: 5%;
 }
 
@@ -333,6 +338,9 @@ body{
   display: flex;
   flex-direction: row;
   padding: 0;
+}
+.mobile-stats{  
+  display: none;
 }
 }
 

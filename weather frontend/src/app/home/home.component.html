@@ -36,9 +36,29 @@
   <div class="search-container">
     <input [(ngModel)]="city" type="text"  placeholder="Enter city name" (keyup.enter)="getCity()"/>
     <button (click)="getCity()">Search</button>
+  </div>  
+
+  <div *ngIf="isMobile" class="mobile-toggle">
+    <button (click)="switchTab('map')" [class.active]="activeTab === 'map'">Map</button>
+    <button (click)="switchTab('cards')" [class.active]="activeTab === 'cards'">Cards</button>
   </div>
-  
-  <!-- Small laptops and screens greater than that friendly view -->
+
+<div class="mobile-stats">
+  <!-- Toggle view for mobile -->
+  <div *ngIf="isMobile && activeTab === 'map'" class="location__current--map" id="map1"></div>
+  <div *ngIf="isMobile && activeTab === 'cards'" class="news">
+    <div class="cards" *ngFor="let item of newsItems">
+      <img [src]="'assets/images/' + item.weather[0].main.toLowerCase() + '.svg'" class="news--logo" />
+      <div> 
+        <h3>{{ item.dt_txt }}</h3>
+        <h3>{{ (item.main.temp_min - 273) | number: '1.0-1' }}°C</h3>
+        <h4>{{ item.weather[0].description }}</h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Small laptops and screens greater than that friendly view -->
   <div class="stats" *ngIf="!isMobile">
     <div id="map1" class="location__current--map"></div>
     <!-- <div class="news"></div> -->
@@ -53,26 +73,6 @@
       </div>
     </div>
   </div>
-
-  <div *ngIf="isMobile" class="mobile-toggle">
-    <button (click)="switchTab('map')" [class.active]="activeTab === 'map'">Map</button>
-    <button (click)="switchTab('cards')" [class.active]="activeTab === 'cards'">Cards</button>
-  </div>
-
-<div class="stats">
-  <!-- Toggle view for mobile -->
-  <div *ngIf="isMobile && activeTab === 'map'" class="location__current--map" id="map1"></div>
-  <div *ngIf="isMobile && activeTab === 'cards'" class="news">
-    <div class="cards" *ngFor="let item of newsItems">
-      <img [src]="'assets/images/' + item.weather[0].main.toLowerCase() + '.svg'" class="news--logo" />
-      <div> 
-        <h3>{{ item.dt_txt }}</h3>
-        <h3>{{ (item.main.temp_min - 273) | number: '1.0-1' }}°C</h3>
-        <h4>{{ item.weather[0].description }}</h4>
-      </div>
-    </div>
-  </div>
-</div>
   
   <div class="graph">
     <h1 class="back">
