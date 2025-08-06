@@ -1,5 +1,12 @@
 # 🌦️ Weather WebApp
 
+[![Angular](https://img.shields.io/badge/Angular-16-red?logo=angular&logoColor=white)](https://angular.io/) 
+[![ASP.NET](https://img.shields.io/badge/ASP.NET-Web%20API-blue?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/apps/aspnet) 
+[![Leaflet](https://img.shields.io/badge/Leaflet-Map-green?logo=leaflet&logoColor=white)](https://leafletjs.com/) 
+[![Google Charts](https://img.shields.io/badge/Google-Charts-yellow?logo=google&logoColor=black)](https://developers.google.com/chart)  
+[![License](https://img.shields.io/badge/License-MIT-brightgreen.svg)](LICENSE) 
+[![OpenWeather](https://img.shields.io/badge/API-OpenWeatherMap-orange?logo=openweathermap&logoColor=white)](https://openweathermap.org/)
+
 A responsive and feature-rich weather forecasting web application built with **Angular** (frontend) and **ASP.NET Web API** (backend).  
 The app provides **real-time weather updates**, **interactive maps**, and a **5-day forecast visualization** — all while giving users the option to subscribe for **periodic weather emails**.
 
