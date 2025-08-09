@@ -52,5 +52,5 @@ The app provides **real-time weather updates**, **interactive maps**, and a **5-
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/yourusername/weather-webapp.git
-cd weather-webapp
+git clone https://github.com/Aditya-Sharma-2002/weather.git
+cd weather
