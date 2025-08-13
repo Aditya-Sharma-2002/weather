@@ -1,1 +1,20 @@
-﻿.vs/
+﻿# Build folders
+bin/
+obj/
+
+# Environment variables
+.env
+
+# IDE files
+*.csproj.user
+.vs/
+.vscode/
+
+# Logs
+*.log
+
+# Dev configs
+appsettings.Development.json
+
+# Optional test/debug files
+*.http

@@ -26,6 +26,7 @@ namespace weather_backend.Controllers
     [HttpPost]
     public async Task<ActionResult<Subscriber>> AddSubscriber(Subscriber subscriber)
     {
+      //Console.WriteLine(subscriber);
       subscriber.createdAt = DateTime.UtcNow;
       await _subscriberRepository.AddAsync(subscriber);
       return Ok(subscriber);

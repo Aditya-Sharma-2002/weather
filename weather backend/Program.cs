@@ -1,3 +1,4 @@
+using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using weather_backend.Data;
 using weather_backend.Interfaces;
@@ -8,9 +9,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<ISubscriberRepository, SubscriberRepository>();
+if (builder.Environment.IsDevelopment())
+{
+    Env.Load(); // looks for .env in root by default
+}
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
-        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
+    options.UseMySql(Environment.GetEnvironmentVariable("DefaultConnection"), //Environment.GetEnvironmentVariable("DefaultConnection")
+        ServerVersion.AutoDetect(Environment.GetEnvironmentVariable("DefaultConnection"))));  //Environment.GetEnvironmentVariable("DefaultConnection")
 builder.Services.AddControllers();
 builder.Services.AddHostedService<EmailSchedulerService>();
 builder.Services.AddCors(options =>
@@ -18,7 +23,7 @@ builder.Services.AddCors(options =>
   options.AddPolicy("AllowAngularApp",
       policy =>
       {
-        policy.WithOrigins("http://localhost:4200")
+        policy.WithOrigins(Environment.GetEnvironmentVariable("ANGULAR_ORIGIN"))
                 .AllowAnyHeader()
                 .AllowAnyMethod();
       });
