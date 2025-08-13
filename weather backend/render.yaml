@@ -1,0 +1,8 @@
+﻿services:
+  - type: web
+    name: weather backend
+    runtime: docker
+    plan: free
+    envVars:
+      - key: ASPNETCORE_URLS
+        value: http://+:10000
