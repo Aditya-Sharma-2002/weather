@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { DataService } from '../service/data.service';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-aqi',
@@ -14,7 +15,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class AqiComponent implements OnInit {
 
-  key = 'dda175c03f9d60359987d65376ea067f';
+  key = environment.openWeatherAPIKey;
   latitude!: number;
   longitude!: number;
   date = new Date();
@@ -58,7 +59,7 @@ export class AqiComponent implements OnInit {
 
   fetchAQIData(lat: number, lon: number) {
     this.dataService.getGeolocation(lat, lon).subscribe(loc => {
-      fetch(`https://api.waqi.info/search/?token=d9d6fd38c2f43fc932d2c011f45d9b605748e0c6&keyword=${loc.address.city || loc.address.county}`)
+      fetch(`https://api.waqi.info/search/?token=${environment.aqiAPIKey}&keyword=${loc.address.city || loc.address.county}`)
         .then(res => res.json())
         .then(data => {
           data.data.forEach((item: any) => {

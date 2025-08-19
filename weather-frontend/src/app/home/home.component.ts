@@ -5,6 +5,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ChartType, GoogleChartsModule } from 'angular-google-charts';
 import { FormsModule } from '@angular/forms';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 export class HomeComponent implements OnInit {
 
-  key = 'dda175c03f9d60359987d65376ea067f';
+  key = environment.openWeatherAPIKey;
   date = new Date();
   latitude!: number;
   longitude!: number;
